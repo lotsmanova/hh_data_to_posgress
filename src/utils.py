@@ -3,6 +3,7 @@ import requests
 
 def get_vacancy_company(company_name: str) -> None:
     """Получение данных о вакансиях"""
+
     url = f"https://api.hh.ru/vacancies?employer={company_name}"
     response_v = requests.get(url)
     if response_v.status_code == 200:
@@ -14,6 +15,7 @@ def get_vacancy_company(company_name: str) -> None:
 
 def create_database(db_name: str, params: dict) -> None:
     """Создание БД"""
+
     # подключение к БД
     conn = psycopg2.connect(dbname='postgres', **params)
     conn.autocommit = True
@@ -28,6 +30,7 @@ def create_database(db_name: str, params: dict) -> None:
 
 def create_tables(db_name: str, params: dict) -> None:
     """Создание таблицы в БД"""
+
     # подключение к БД
     conn = psycopg2.connect(dbname=db_name, **params)
     with conn.cursor() as cur:
@@ -59,6 +62,7 @@ def create_tables(db_name: str, params: dict) -> None:
 
 def insert_data(vacancies: list[dict], db_name: str, params: dict) -> None:
     """Заполнение данных таблицы"""
+
     # подключение к БД
     conn = psycopg2.connect(dbname=db_name, **params)
 
