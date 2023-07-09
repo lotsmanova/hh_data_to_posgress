@@ -33,9 +33,33 @@ def create_database(db_name: str, params: dict) -> None:
     conn.close()
 
 
-def create_tables():
+def create_tables(db_name: str, params: dict):
     """Создание таблицы в БД"""
-    pass
+    conn = psycopg2.connect(dbname=db_name, **params)
+    with conn.cursor() as cur:
+        cur.execute("""
+            CREATE TABLE employeers (
+                employee_id SERIAL PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                employeer_url TEXT
+            )
+        """)
+
+    with conn.cursor() as cur:
+        cur.execute("""
+            CREATE TABLE vacancies (
+                vacancy_id SERIAL PRIMARY KEY,
+                employee_id INT REFERENCES employeers(employee_id),
+                name VARCHAR(255) NOT NULL,
+                salary INT,
+                city VARCHAR(100),
+                vacancy_url TEXT
+            )
+        """)
+
+    conn.commit()
+    conn.close()
+
 
 def insert_data():
     """Заполнение данных таблицы"""
