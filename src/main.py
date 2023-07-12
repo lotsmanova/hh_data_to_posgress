@@ -44,8 +44,9 @@ def main():
     print('_______________________________________________')
 
     # список вакансий с ключевым словом
+    key_word = input('Введите ключевое слово для поиска: ')
     print('Список вакансий по ключевому слову:')
-    print(db_manager.get_vacancies_with_keyword('оператор'))
+    print(db_manager.get_vacancies_with_keyword(key_word))
     print('_______________________________________________')
 
 
